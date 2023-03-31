@@ -1,1 +1,0 @@
-void mergesort(std::vector<int> array);

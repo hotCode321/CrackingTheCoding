@@ -1,5 +1,5 @@
 // #include "CCI/include/BigO.hpp"
-#include "CCI/include/Chapter16-Moderate.hpp"
+#include "../include/Chapter16-Moderate.hpp"
 #include <gtest/gtest.h>
 
 // TEST(BigO, add)
@@ -29,8 +29,8 @@ Written enquire painful ye to offices forming it. Then so does over sent dull on
 Its sometimes her behaviour are contented. Do listening am eagerness oh objection collected. Together gay feelings continue juvenile had off one. Unknown may service subject her letters one bed. Child years noise ye in forty. Loud in this in both hold. My entrance me is disposal bachelor remember relation.\
 Her extensive perceived may any sincerity extremity. Indeed add rather may pretty see. Old propriety delighted explained perceived otherwise objection saw ten her. Doubt merit sir the right these alone keeps. By sometimes intention smallness he northward. Consisted we otherwise arranging commanded discovery it explained. Does cold even song like two yet been. Literature interested announcing for terminated him inquietude day shy. Himself he fertile chicken perhaps waiting if highest no it. Continued promotion has consulted fat improving not way.";
 
-   std::string word = "objection";
-    GTEST_ASSERT_EQ(wordFrequency(page, word), 3);
+   std::string word = "minutes";
+    GTEST_ASSERT_EQ(wordFrequency(page, word), 2);
 }
 
 int main(int argc, char *argv[])

@@ -2,189 +2,43 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "Utils.hpp"
 
-class Node
-{
-public:
-    Node *next = nullptr;
-    int data;
 
-    Node(Node *iNext, int iData)
-    {
-        this->next = iNext;
-        data = iData;
-    }
+void removeDups(LinkedList &iLinkedList);
 
-    void appendToTail(int d)
-    {
-        Node *end = new Node(nullptr, d);
-        Node *n = this;
-        while (n->next != nullptr)
-        {
-            n = n->next;
-        }
-        n->next = end;
-    }
+void removeDupsNoBuffer(LinkedList &kList);
 
-    void insert(int data, int index)
-    {
-        Node *newNode = new Node(nullptr, data);
-        Node *head = this;
+Node *returnKthToLast(LinkedList &kList, int idx);
 
-        if (index == 0)
-        {
-            newNode->next == head;
-            head = newNode;
-            return;
-        }
+int fillKthToLast(Node *iNode, int k, int &output); // recursive
 
-        Node *t = head;
-        for (int i = 0; i < index - 1; i++)
-        {
-            if (t == nullptr)
-            {
-                std::cerr << "Error: Index out of range" << std::endl;
-                return;
-            }
-            t = t->next;
-        }
+bool deleteMiddleNode(Node *n);
 
-        newNode->next = t->next;
-        t->next = newNode;
-    }
+// bool moveToTheEnd(LinkedList &iLinkedList, Node *iNode);
 
-    Node* deleteNode(int d)
-    {
-        Node* curr = this;
-        Node* toDelete = nullptr;
+void partitionLinkedList(LinkedList &iLinkedList, int iX);
 
-        if (curr->data == d)
-        {
-            curr = curr->next;
-            delete this;
-            return curr;
-        }
+void partitionLinkedListCCI(Node *&node, int iX);
 
-        while (curr->next != nullptr)
-        {
-            if (curr->next->data == d)
-            {
-                toDelete = curr->next;
-                curr->next = curr->next->next;
-                delete toDelete;
-                return this; // head didn't change
-            }
-            curr = curr->next;
-        }
-        return this;
-    }
+LinkedList sumLists(LinkedList &l1, LinkedList &l2);
 
-    std::string print()
-    {
-        Node *head = this;
-        std::stringstream ss;
-        Node *n = head;
-        while (n != nullptr)
-        {
-            ss << n->data << " ";
-            n = n->next;
-        }
-        std::string output = std::string(ss.str());
-        output.pop_back();
-        return output;
-    }
-};
+LinkedList sumListsReverse(LinkedList &l1, LinkedList &l2);
 
-class NodeD
-{
-public:
-    NodeD *next = nullptr;
-    NodeD *previous = nullptr;
-    int data;
+void bubbleHeadToTail(LinkedList &l1);
 
-    NodeD(NodeD *iNext, NodeD *iPrevious, int iData) : next(iNext), previous(iPrevious), data(iData) {}
+void reverseList(LinkedList &l1);
 
-    void insert(int data, int index)
-    {
-        NodeD *newNode = new NodeD(nullptr, nullptr, data);
-        NodeD *head = this;
-        if (index == 0)
-        {
-            newNode->next == head;
-            head = newNode;
-            return;
-        }
+Node *recurse(Node *n, int size, bool &isPalindrome);
+bool isPalindromeRecurse(LinkedList &l1);
 
-        NodeD *t = head;
-        for (int i = 0; i < index - 1; i++)
-        {
-            if (t == nullptr)
-            {
-                std::cerr << "Error: Index out of range" << std::endl;
-                return;
-            }
-            t = t->next;
-        }
+bool isPalindrome_Stack1(LinkedList &l1);
 
-        newNode->next = t->next;
-        newNode->previous = t;
-        if (t->next != nullptr)
-        {
-            t->next->previous = newNode;
-            t->next = newNode;
-        }
-    }
+bool isPalindromeSlowRunner(LinkedList &l1);
 
-    NodeD *deleteNode(int d)
-    {
-        NodeD *curr = this;
-        NodeD* toDelete = nullptr;
-
-        if (curr->data == d)
-        {
-            curr = curr->next;
-            delete this;
-            return curr; // moved head
-        }
-
-        while (curr->next != nullptr)
-        {
-            if (curr->next->data == d)
-            {
-                toDelete = curr->next;
-                curr->next = curr->next->next;
-                if (curr->next->next != nullptr)
-                {
-                    curr->next->next->previous = curr;
-                }
-                return this; // head didn't change
-            }
-            curr = curr->next;
-        }
-        return this;
-    }
-
-    std::string print()
-    {
-        NodeD *head = this;
-        std::stringstream ss;
-        NodeD *n = head;
-        while (n != nullptr)
-        {
-            ss << n->data << " ";
-            n = n->next;
-        }
-        std::string output = std::string(ss.str());
-        output.pop_back();
-        return output;
-    }
-};
-
-// void insertAtIdx(Node *head, int data, int index);
-Node *makeSingleList(std::vector<int> list);
-Node *makeStaticSingleList();
-Node *makeStaticSingleList_2();
-NodeD *makeDoubleList(std::vector<int> list);
-NodeD *makeStaticDoubleList();
-void deleteNode(Node *head, int key);
-void removeDups(Node *head);
+Node *firstInterSectionNode_Set(LinkedList &l1, LinkedList &l2);
+Node *firstInterSectionNode_Chop(LinkedList &l1, LinkedList &l2);
+Node *popHead(LinkedList &l1);
+Node *loopDetection_Set(LinkedList &l1);
+Node *loopDetectionSlowRunner(LinkedList &l1);
+Node *returnTail(LinkedList &l1);

@@ -172,7 +172,7 @@ bool oneAway(std::string lh, std::string rh)
     {
         std::string tmp = lh;
         lh = rh;
-        rh = lh;
+        rh = tmp;
     }
 
     if (lh.size() - rh.size() > 1)

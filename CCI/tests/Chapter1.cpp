@@ -55,6 +55,7 @@ TEST(Chapter1, 5_checkOneAway)
 {
     GTEST_ASSERT_TRUE(oneAway("pale", "ple"));
     GTEST_ASSERT_TRUE(oneAway("pales", "pale"));
+    GTEST_ASSERT_TRUE(oneAway("pale", "pales"));
     GTEST_ASSERT_TRUE(oneAway("pale", "bale"));
     GTEST_ASSERT_FALSE(oneAway("pale", "bake"));
 }

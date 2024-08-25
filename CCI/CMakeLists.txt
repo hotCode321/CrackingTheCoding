@@ -4,6 +4,7 @@ project (CCI)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_library(CCI SHARED 
                 src/Examples.cpp 
+                src/Objects.cpp
                 # src/BigO.cpp 
                 src/Chapter1-ArraysAndStrings.cpp 
                 src/Chapter2-LinkedLists.cpp 
@@ -24,15 +25,15 @@ add_library(CCI SHARED
                 src/Chapter17-Hard.cpp
                 )
 
-set(AllChapters tests/Chapter1.cpp tests/Chapter2.cpp tests/Chapter3.cpp)
-
 add_executable(Chapter1 tests/Chapter1.cpp) # add this executable
 add_executable(Chapter2 tests/Chapter2.cpp) # add this executable
 add_executable(Chapter3 tests/Chapter3.cpp) # add this executable
-add_executable(AllTests ${AllChapters}) # add this executable
+add_executable(Chapter4 tests/Chapter4.cpp) # add this executable
 add_executable(Chapter16 tests/Chapter16.cpp) # add this executable
+# add_executable(AllTests tests/Chapter1.cpp tests/Chapter2.cpp tests/Chapter3.cpp) # add this executable
 target_link_libraries(Chapter1 PUBLIC CCI PRIVATE gtest)
 target_link_libraries(Chapter2 PUBLIC CCI PRIVATE gtest)
 target_link_libraries(Chapter3 PUBLIC CCI PRIVATE gtest)
+target_link_libraries(Chapter4 PUBLIC CCI PRIVATE gtest)
 target_link_libraries(Chapter16 PUBLIC CCI PRIVATE gtest)
 

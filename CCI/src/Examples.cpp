@@ -8,7 +8,7 @@ int sum(int n){
     return n + sum(n-1);
 }
 
-int sumNodes(Node* node){
+int sumNodes(NodeTree* node){
   if (node == nullptr) {
     return 0;
   }

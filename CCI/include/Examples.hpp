@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-#include "Objects.hpp"
 #include <vector>
 #include <tuple>
+#include "Utils.hpp"
 
 #define PRINT(x) std::cout << #x"=" << x << std::endl
 
@@ -11,4 +11,4 @@ std::tuple<int, int> findMinMax(std::vector<int> array);
 
 void reverse(std::vector<int> &vec);
 
-int sumNodes(Node* node);
+int sumNodes(NodeTree* node);

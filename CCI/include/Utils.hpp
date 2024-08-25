@@ -1,8 +1,9 @@
+#pragma once
+
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
-
 
 class Node
 {
@@ -15,6 +16,23 @@ public:
 
     Node *next = nullptr;
     int data;
+
+    friend class LinkedList;
+    friend class MyStack;
+};
+
+template <class T>
+class NodeT
+{
+public:
+    NodeT(T iData, NodeT *iNext = nullptr)
+    {
+        this->data = iData;
+        this->next = iNext;
+    }
+
+    NodeT *next = nullptr;
+    T data;
 
     friend class LinkedList;
     friend class MyStack;
@@ -337,12 +355,12 @@ public:
     }
 };
 
-class EmptyStackException : std::exception
+class EmptyContainerException : std::exception
 {
 public:
     std::string what()
     {
-        return "Stack is empty";
+        return "Container is empty";
     }
 };
 
@@ -364,26 +382,28 @@ public:
         int size = iValues.size();
         top = new Node(iValues[0]);
 
+        Node *n = nullptr;
         for (int i = 1; i < size; i++)
         {
-            Node *next = new Node(iValues[i]);
-            next->next = top;
-            top = next;
+            n = new Node(iValues[i]);
+            n->next = top;
+            top = n;
         }
     }
 
     Node *top = nullptr;
 
-    int &pop()
+    Node &pop()
     {
         if (isEmpty())
         {
-            throw new EmptyStackException();
+            throw new EmptyContainerException();
         }
 
-        int &item = top->data;
+        Node &toReturn = *top;
         top = top->next;
-        return item;
+        toReturn.next = nullptr;
+        return toReturn;
     }
 
     void push(int item)
@@ -393,11 +413,17 @@ public:
         top = t;
     }
 
+    void push(Node &node)
+    {
+        node.next = top;
+        top = &node;
+    }
+
     int peek()
     {
         if (isEmpty())
         {
-            throw new EmptyStackException();
+            throw new EmptyContainerException();
         }
 
         return top->data;
@@ -424,4 +450,119 @@ public:
         }
         return output;
     }
+};
+
+template <class T>
+class MyQueue
+{
+public:
+    NodeT<T> *first = nullptr;
+    NodeT<T> *last = nullptr;
+
+    MyQueue(NodeT<T> *iFirst = nullptr) : first(iFirst)
+    {
+        last = first;
+    };
+
+    MyQueue(T iFirstValue)
+    {
+        first = new NodeT<T>(iFirstValue);
+        last = first;
+    };
+
+    MyQueue(const std::vector<T> &iValues)
+    {
+        first = new NodeT<T>(iValues[0]);
+        int size = iValues.size();
+        NodeT<T> *n = first;
+        for (int i = 1; i < size; i++)
+        {
+            n->next = new NodeT<T>(iValues[i]);
+            n = n->next;
+        }
+        last = n;
+    }
+
+    void add(T value)
+    {
+        if (isEmpty())
+        {
+            first = new NodeT<T>(value);
+            last = first;
+            return;
+        }
+        last->next = new NodeT<T>(value);
+        last = last->next;
+    }
+
+    NodeT<T> &remove()
+    {
+        if (isEmpty())
+        {
+            throw new EmptyContainerException();
+        }
+
+        NodeT<T> &toRemove = *first;
+        first = first->next;
+        return toRemove;
+    }
+
+    T peek()
+    {
+        if (isEmpty())
+        {
+            throw new EmptyContainerException();
+        }
+
+        return first->data;
+    }
+
+    bool isEmpty()
+    {
+
+        return first == nullptr;
+    }
+
+    std::string print()
+    {
+        std::stringstream ss;
+        NodeT<T> *t = first;
+        while (t != nullptr)
+        {
+            ss << t->data << " ";
+            t = t->next;
+        }
+        std::string output = std::string(ss.str());
+        if (output.length() > 0)
+        {
+            output.pop_back();
+        }
+        return output;
+    }
+};
+
+class NodeTree
+{
+public:
+    int value;
+    NodeTree *left;
+    NodeTree *right;
+    NodeTree *parent;
+
+    NodeTree(int iValue, NodeTree *iLeft = nullptr, NodeTree *iRight = nullptr, NodeTree *iParent = nullptr) : value(iValue), left(iLeft), right(iRight), parent(iParent) {}
+};
+
+class NodeGraph
+{
+public:
+    int value;
+    std::vector<NodeGraph *> children;
+    NodeGraph(int iValue, std::vector<NodeGraph *> iChildren = {}) : value(iValue), children(iChildren) {}
+};
+
+class Graph
+{
+public:
+    std::vector<NodeGraph *> nodes;
+    Graph(std::vector<NodeGraph *> iNodes) : nodes(iNodes) {}
 };
